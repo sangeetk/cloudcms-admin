@@ -16,6 +16,7 @@ func init() {
 		// Admin routes
 		beego.Router("/admin", &controllers.AdminController{})
 		beego.Router("/admin/dashboard", &controllers.DashboardController{})
+		beego.Router("/admin/microservice/:name", &controllers.MicroserviceController{})
 		beego.Router("/admin/logout", &controllers.LogoutController{})
 
 		// Admin static files

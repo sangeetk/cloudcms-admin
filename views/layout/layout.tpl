@@ -21,12 +21,12 @@
 
 <body>
 
-  {{ template "partial/header.tpl" }}
+  {{ template "partial/header.tpl" . }}
   
   <div class="wrapper">
     <div class="columns">
       <aside class="column is-2 aside">
-        {{ template "partial/navigation.tpl" }}
+        {{ template "partial/navigation.tpl" . }}
       </aside>
 
       <main class="column main">

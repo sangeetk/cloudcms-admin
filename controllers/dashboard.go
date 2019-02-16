@@ -2,7 +2,9 @@ package controllers
 
 import (
 	"net/http"
+	"os"
 
+	"git.urantiatech.com/cloudcms/cloudcms/api"
 	"github.com/urantiatech/beego"
 )
 
@@ -20,6 +22,11 @@ func (dc *DashboardController) Get() {
 		return
 	}
 
+	if Schema == nil {
+		Schema, _ = api.Schema(os.Getenv("CLOUDCMS_SVC"))
+	}
+
 	dc.TplName = "page/dashboard.tpl"
 	dc.Data["Title"] = "Dashboard"
+	dc.Data["Schema"] = Schema
 }
