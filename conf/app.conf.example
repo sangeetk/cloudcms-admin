@@ -1,0 +1,7 @@
+appname = cloudcms-admin
+httpport = 8080
+runmode = prod
+
+adminuser = admin
+adminpass = secret
+signkey = 32-byte-randomstring-signing-key

@@ -6,5 +6,21 @@ import (
 )
 
 func init() {
-    beego.Router("/", &controllers.MainController{})
+
+	// Static files
+	beego.SetStaticPath("/fonts", "static/fonts")
+	beego.SetStaticPath("/uploads", "uploads")
+
+	if beego.AppConfig.String("adminuser") != "" &&
+		beego.AppConfig.String("adminpass") != "" {
+		// Admin routes
+		beego.Router("/admin", &controllers.AdminController{})
+		beego.Router("/admin/dashboard", &controllers.DashboardController{})
+		beego.Router("/admin/logout", &controllers.LogoutController{})
+
+		// Admin static files
+		beego.SetStaticPath("/badmin", "static/badmin")
+	}
+	// beego.ErrorController(&controllers.ErrorController{})
+
 }
