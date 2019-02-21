@@ -60,6 +60,7 @@
   </div>
 
   <script src="/badmin/dist/build.js"></script>
+  <script defer src="/badmin/fontawesome/js/all.js"></script>
 
 </body>
 

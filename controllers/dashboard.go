@@ -15,7 +15,6 @@ type DashboardController struct {
 
 // Get request handler
 func (dc *DashboardController) Get() {
-
 	if Authenticate(dc.Ctx) != nil {
 		// Redirect to login page
 		dc.Redirect("/admin", http.StatusSeeOther)
