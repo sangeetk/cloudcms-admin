@@ -15,11 +15,11 @@
     </ul>
 
     <p class="menu-label">
-      Microservices
+      CMS Contents
     </p>
     <ul class="menu-list">
       {{ range $name, $fields := .Schema }}
-      <li><a href="/admin/microservice/{{$name}}"><span class="icon is-small"><i class="fa fa-cogs"></i></span> {{title $name}}</a></li>
+      <li><a href="/admin/content/{{$name}}"><span class="icon is-small"><i class="fa fa-cogs"></i></span> {{title $name}}</a></li>
       {{ end }}
     </ul>
 

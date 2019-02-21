@@ -16,8 +16,9 @@ func init() {
 		// Admin routes
 		beego.Router("/admin", &controllers.AdminController{})
 		beego.Router("/admin/dashboard", &controllers.DashboardController{})
-		beego.Router("/admin/microservice/:name", &controllers.MicroserviceController{}, "get:Index;post:Save")
-		beego.Router("/admin/microservice/:name/edit", &controllers.MicroserviceController{}, "get:Edit")
+		beego.Router("/admin/content/:name", &controllers.ContentController{}, "get:Index;post:Save;delete:Delete")
+		beego.Router("/admin/content/:name/editor", &controllers.ContentController{}, "get:Editor")
+		beego.Router("/admin/content/:name/delete", &controllers.ContentController{}, "get:Delete")
 		beego.Router("/admin/logout", &controllers.LogoutController{})
 
 		// Admin static files

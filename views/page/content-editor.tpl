@@ -17,7 +17,7 @@
   <div class="columns is-multiline">
     <div class="column is-11">
 
-<form method="POST" action="/admin/microservice/{{.Name}}">
+<form method="POST" action="/admin/content/{{.Name}}">
 
 
       <div class="field is-horizontal">
@@ -106,6 +106,8 @@
       {{ $fields := "" }}
       {{ $useforslug := "" }}
       {{ $content := .Content }}
+      {{ $newContent := false }}
+      {{ if hasPrefix .Title "Add" }} {{ $newContent = true}} {{ end }}
 
       {{ range $f := .Fields }}
       <div class="field is-horizontal">
@@ -159,8 +161,13 @@
         <div class="field-body">
           <div class="field">
             <div class="control">
-              <input class="input" type="text" id="{{$name}}" name="{{$name}}" value="{{contentDateValue $content $name}}" 
-              placeholder="{{ $f.Helptext }}">
+              <input class="input" type="text" name="{{$name}}" id="{{$name}}" 
+              {{ if $newContent }} 
+                value="{{ currentDate }}"
+              {{ else }}
+                value="{{ contentDateValue $content $name }}" 
+              {{ end }}
+              placeholder="{{$f.Helptext}}">
             </div>
           </div>
         </div>
@@ -285,9 +292,9 @@
           {{ if hasPrefix .Title "Edit" }}
           <div class="field">
             <div class="control">
-              <button class="button is-primary">
+              <a class="button is-primary" href="/admin/content/{{.Name}}/delete?slug={{.Content.slug}}">
                 Delete {{ title .Name }}
-              </button>
+              </a>
             </div>
           </div>
           {{ end }}
