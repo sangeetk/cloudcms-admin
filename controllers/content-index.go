@@ -25,6 +25,7 @@ func (mc *ContentController) Index() {
 
 	name := mc.Ctx.Input.Param(":name")
 	mc.Data["Name"] = name
+	mc.Data["Flash"] = beego.ReadFromRequest(&mc.Controller).Data
 
 	mc.TplName = "page/content-index.tpl"
 	mc.Data["Title"] = strings.Title(name)

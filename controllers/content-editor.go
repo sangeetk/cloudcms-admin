@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"git.urantiatech.com/cloudcms/cloudcms/api"
+	"github.com/urantiatech/beego"
 	"golang.org/x/text/language"
 )
 
@@ -20,8 +21,9 @@ func (mc *ContentController) Editor() {
 	mc.TplName = "page/content-editor.tpl"
 	name := mc.Ctx.Input.Param(":name")
 	mc.Data["Name"] = name
-
+	mc.Data["Flash"] = beego.ReadFromRequest(&mc.Controller).Data
 	slug := mc.GetString("slug")
+
 	var c interface{}
 	var err error
 

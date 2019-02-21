@@ -1,7 +1,10 @@
 {{ template "layout/layout.tpl" . }}
 
 {{ define "contents" }}
-<a href="/admin/content/{{.Name}}/editor" class="button is-primary">Add Blog</a>
+  
+  {{ template "partial/flash.tpl" .}}
+
+<a href="/admin/content/{{.Name}}/editor" class="button is-primary">Add {{title .Name}}</a>
 <br><br>
 <table class="table is-bordered is-hoverable is-fullwidth">
   <thead>

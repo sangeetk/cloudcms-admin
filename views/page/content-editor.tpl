@@ -2,18 +2,8 @@
 
 {{ define "contents" }}
 
-  {{ if .Error }}
-    <div class="notification is-danger">
-    <button class="delete"></button> {{ .Error }}
-  </div>
-  {{ end }}
-
-  {{ if .Success }}
-    <div class="notification is-success">
-    <button class="delete"></button> {{ .Success }}
-  </div>
-  {{ end }}
-
+  {{ template "partial/flash.tpl" .}}
+  
   <div class="columns is-multiline">
     <div class="column is-11">
 

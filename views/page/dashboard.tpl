@@ -1,6 +1,9 @@
 {{ template "layout/layout.tpl" . }}
 
 {{ define "contents" }}
+
+  {{ template "partial/flash.tpl" .}}
+
         <div class="columns is-multiline">
           <div class="column">
             <div class="box notification is-primary">

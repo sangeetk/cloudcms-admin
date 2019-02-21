@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"net/http"
 	"os"
 	"strings"
@@ -8,6 +9,7 @@ import (
 
 	"git.urantiatech.com/cloudcms/cloudcms/api"
 	"git.urantiatech.com/cloudcms/cloudcms/item"
+	"github.com/urantiatech/beego"
 	"golang.org/x/text/language"
 )
 
@@ -21,11 +23,13 @@ func (mc *ContentController) Save() {
 
 	var err error
 	var date time.Time
+	flash := beego.NewFlash()
 
 	name := mc.Ctx.Input.Param(":name")
 	mc.Data["Name"] = name
 	mc.Data["Title"] = strings.Title(name)
 	mc.Data["Schema"] = Schema
+	mc.Data["Flash"] = beego.ReadFromRequest(&mc.Controller).Data
 
 	contents := make(map[string]interface{})
 	for i, field := range strings.Split(mc.GetString("fields"), ",") {
@@ -34,11 +38,12 @@ func (mc *ContentController) Save() {
 		case item.WidgetDate:
 			date, err = time.Parse("2006-01-02", mc.GetString(field))
 			if err != nil {
-				mc.Data["Error"] = err.Error()
+				flash.Error(fmt.Sprintf("Error: %s", err.Error()))
+				flash.Store(&mc.Controller)
 				if slug := mc.GetString("slug"); slug != "" {
-					mc.Redirect("/admin/content/"+name+"/edit?slug="+slug, http.StatusSeeOther)
+					mc.Redirect("/admin/content/"+name+"/editor?slug="+slug, http.StatusSeeOther)
 				} else {
-					mc.Redirect("/admin/content/"+name+"/edit", http.StatusSeeOther)
+					mc.Redirect("/admin/content/"+name+"/editor", http.StatusSeeOther)
 				}
 				return
 			}
@@ -69,14 +74,17 @@ func (mc *ContentController) Save() {
 		_, err = api.Update(name, mc.GetString("language"), slug, contents, os.Getenv("CLOUDCMS_SVC"))
 	}
 	if err != nil {
-		mc.Data["Error"] = err.Error()
+		flash.Error(fmt.Sprintf("Error: %s", err.Error()))
+		flash.Store(&mc.Controller)
 		if slug := mc.GetString("slug"); slug != "" {
-			mc.Redirect("/admin/content/"+name+"/edit?slug="+slug, http.StatusSeeOther)
+			mc.Redirect("/admin/content/"+name+"/editor?slug="+slug, http.StatusSeeOther)
 		} else {
-			mc.Redirect("/admin/content/"+name+"/edit", http.StatusSeeOther)
+			mc.Redirect("/admin/content/"+name+"/editor", http.StatusSeeOther)
 		}
 		return
 	}
 
+	flash.Notice(fmt.Sprintf("%s saved", strings.Title(name)))
+	flash.Store(&mc.Controller)
 	mc.Redirect("/admin/content/"+name, http.StatusSeeOther)
 }
