@@ -7,9 +7,5 @@
     <div class="notification is-warning">
     <button class="delete"></button> {{ .warning }}
     {{ end }}
-    {{ if .notice }}
-    <div class="notification is-info">
-    <button class="delete"></button> {{ .notice }}
-    {{ end }}
   </div>
   {{ end }}

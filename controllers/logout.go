@@ -16,6 +16,7 @@ func (lc *LogoutController) Get() {
 	// Set Empty Auth Cookie
 	signkey := beego.AppConfig.String("signkey")
 	lc.SetSecureCookie(signkey, "AuthCookie", "")
+	lc.SetSecureCookie(signkey, "LanguageCode", "")
 
 	// Redirect to login page
 	lc.Redirect("/admin", http.StatusSeeOther)

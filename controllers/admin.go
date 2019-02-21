@@ -8,6 +8,7 @@ import (
 	"git.urantiatech.com/cloudcms/cloudcms/api"
 	"github.com/urantiatech/beego"
 	"github.com/urantiatech/beego/context"
+	"golang.org/x/text/language"
 )
 
 // AdminController definition
@@ -20,6 +21,9 @@ const authToken = "some-random-string"
 // Schema stores definition of content types
 var Schema map[string]api.ContentType
 
+// Languages supported
+var Languages []string
+
 // Get request handler
 func (ac *AdminController) Get() {
 	if err := Authenticate(ac.Ctx); err != nil {
@@ -29,6 +33,19 @@ func (ac *AdminController) Get() {
 		return
 	}
 
+	lang := ac.GetString("lang")
+	if lang == "" {
+		lang = language.English.String()
+	}
+
+	// Set LanguageCode in Cookie
+	signKey := beego.AppConfig.String("signkey")
+	ac.SetSecureCookie(signKey, "LanguageCode", lang)
+
+	if dst := ac.GetString("dst"); dst != "" {
+		ac.Redirect(dst, http.StatusSeeOther)
+		return
+	}
 	// Redirect to Dashboard if already logged in
 	ac.Redirect("/admin/dashboard", http.StatusSeeOther)
 }
@@ -51,7 +68,7 @@ func (ac *AdminController) Post() {
 	ac.SetSecureCookie(signkey, "AuthCookie", authToken)
 
 	if Schema == nil {
-		Schema, _ = api.Schema(os.Getenv("CLOUDCMS_SVC"))
+		Languages, Schema, _ = api.Schema(os.Getenv("CLOUDCMS_SVC"))
 	}
 
 	// Redirect to Dashboard after login
@@ -67,4 +84,15 @@ func Authenticate(c *context.Context) error {
 		return errors.New("Please login to continue")
 	}
 	return nil
+}
+
+// GetLanguage gets language code from Cookie
+func GetLanguage(c *context.Context) string {
+	// Check LanguageCode Cookie
+	signkey := beego.AppConfig.String("signkey")
+	lang, found := c.GetSecureCookie(signkey, "LanguageCode")
+	if !found || lang == "" {
+		return language.English.String()
+	}
+	return lang
 }

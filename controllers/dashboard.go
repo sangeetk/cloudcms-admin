@@ -22,10 +22,13 @@ func (dc *DashboardController) Get() {
 	}
 
 	if Schema == nil {
-		Schema, _ = api.Schema(os.Getenv("CLOUDCMS_SVC"))
+		Languages, Schema, _ = api.Schema(os.Getenv("CLOUDCMS_SVC"))
 	}
 
 	dc.TplName = "page/dashboard.tpl"
 	dc.Data["Title"] = "Dashboard"
 	dc.Data["Schema"] = Schema
+	dc.Data["Languages"] = Languages
+	dc.Data["LanguageCode"] = GetLanguage(dc.Ctx)
+	dc.Data["URI"] = dc.Ctx.Request.URL.String()
 }

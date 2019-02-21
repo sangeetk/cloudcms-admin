@@ -40,14 +40,25 @@
         <div class="level">
           <div class="level-left">
             <div class="level-item">
-              <div class="title has-text-primary"> {{ .Title }}</div>
+              <div class="title has-text-primary"> 
+                {{.Title}}
+              </div>
             </div>
           </div>
           <div class="level-right">
             <div class="level-item">
-              <a type="button" class="button is-small" href="/">
-                Visit Site
-              </a>
+              <div class="is-centered">
+                <a class="button is-white">Language</a>
+                {{ $currentLang := .LanguageCode }}
+                {{ $uri := .URI }}
+                {{ range $lang := .Languages }}
+                  {{ if eq $lang $currentLang }}
+                    <a class="button is-primary is-label" title="{{langCodeToName $lang}}">{{uppercase $lang}}</a>
+                  {{ else }}
+                    <a class="button is-primary is-outlined" href="/admin?lang={{$lang}}&dst={{$uri}}" title="{{langCodeToName $lang}}">{{uppercase $lang}}</a>
+                  {{ end }}
+                {{ end }}
+              </div>
             </div>
           </div>
         </div>

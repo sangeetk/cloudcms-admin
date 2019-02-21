@@ -6,8 +6,8 @@ import (
 	"strings"
 
 	"git.urantiatech.com/cloudcms/cloudcms/api"
+	"git.urantiatech.com/pkg/lang"
 	"github.com/urantiatech/beego"
-	"golang.org/x/text/language"
 )
 
 // ContentController definition
@@ -17,6 +17,10 @@ type ContentController struct {
 
 // Index request handler
 func (mc *ContentController) Index() {
+	mc.Data["Languages"] = Languages
+	mc.Data["LanguageCode"] = GetLanguage(mc.Ctx)
+	mc.Data["URI"] = mc.Ctx.Request.URL.String()
+
 	if Authenticate(mc.Ctx) != nil {
 		// Redirect to login page
 		mc.Redirect("/admin", http.StatusSeeOther)
@@ -28,10 +32,10 @@ func (mc *ContentController) Index() {
 	mc.Data["Flash"] = beego.ReadFromRequest(&mc.Controller).Data
 
 	mc.TplName = "page/content-index.tpl"
-	mc.Data["Title"] = strings.Title(name)
+	mc.Data["Title"] = lang.CodeToName(GetLanguage(mc.Ctx)) + " " + strings.Title(name)
 	mc.Data["Schema"] = Schema
 
-	list, total, err := api.List(name, language.English.String(), "", "id", 10, 0, os.Getenv("CLOUDCMS_SVC"))
+	list, total, err := api.List(name, GetLanguage(mc.Ctx), "", "id", 10, 0, os.Getenv("CLOUDCMS_SVC"))
 	if err != nil {
 		mc.Data["Error"] = err.Error()
 		return

@@ -10,11 +10,14 @@ import (
 	"git.urantiatech.com/cloudcms/cloudcms/api"
 	"git.urantiatech.com/cloudcms/cloudcms/item"
 	"github.com/urantiatech/beego"
-	"golang.org/x/text/language"
 )
 
 // Save request handler
 func (mc *ContentController) Save() {
+	mc.Data["Languages"] = Languages
+	mc.Data["LanguageCode"] = GetLanguage(mc.Ctx)
+	mc.Data["URI"] = mc.Ctx.Request.URL.String()
+
 	if Authenticate(mc.Ctx) != nil {
 		// Redirect to login page
 		mc.Redirect("/admin", http.StatusSeeOther)
@@ -65,12 +68,18 @@ func (mc *ContentController) Save() {
 
 	mc.Data["Header"] = item.Header{}
 
-	if slug := mc.GetString("slug"); slug == "" {
+	slug := mc.GetString("slug")
+	translationslug := mc.GetString("translationslug")
+
+	if slug == "" && translationslug == "" {
 		// Create Request
 		slug = contents[mc.GetString("useforslug")].(string)
-		_, err = api.Create(name, language.English.String(), slug, contents, os.Getenv("CLOUDCMS_SVC"))
+		_, err = api.Create(name, GetLanguage(mc.Ctx), slug, contents, os.Getenv("CLOUDCMS_SVC"))
+	} else if slug == "" && translationslug != "" {
+		// New Translation Request
+		_, err = api.Create(name, mc.GetString("language"), translationslug, contents, os.Getenv("CLOUDCMS_SVC"))
 	} else {
-		// Update Request
+		// Update Reuest
 		_, err = api.Update(name, mc.GetString("language"), slug, contents, os.Getenv("CLOUDCMS_SVC"))
 	}
 	if err != nil {
@@ -84,7 +93,5 @@ func (mc *ContentController) Save() {
 		return
 	}
 
-	flash.Notice(fmt.Sprintf("%s saved", strings.Title(name)))
-	flash.Store(&mc.Controller)
 	mc.Redirect("/admin/content/"+name, http.StatusSeeOther)
 }

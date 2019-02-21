@@ -5,6 +5,7 @@ import (
 
 	_ "git.urantiatech.com/cloudcms/cloudcms-admin/routers"
 	"git.urantiatech.com/cloudcms/cloudcms-admin/views"
+	"git.urantiatech.com/pkg/lang"
 	"github.com/urantiatech/beego"
 )
 
@@ -17,11 +18,14 @@ func main() {
 	beego.AddFuncMap("title", strings.Title)
 	beego.AddFuncMap("status", views.Status)
 	beego.AddFuncMap("lowercase", strings.ToLower)
+	beego.AddFuncMap("uppercase", strings.ToUpper)
 	beego.AddFuncMap("hasPrefix", strings.HasPrefix)
 	beego.AddFuncMap("contentTextValue", views.ContentTextValue)
 	beego.AddFuncMap("contentDateValue", views.ContentDateValue)
 	beego.AddFuncMap("contentTagsValue", views.ContentTagsValue)
 	beego.AddFuncMap("currentDate", views.CurrentDate)
+	beego.AddFuncMap("langCodeToName", lang.CodeToName)
+	beego.AddFuncMap("langNameToCode", lang.NameToCode)
 
 	beego.Run()
 }

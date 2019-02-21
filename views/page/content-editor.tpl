@@ -29,8 +29,13 @@
               <a class="button is-info"> Lang </a>
             </p>
             <p class="control is-expanded">
-              <input class="input" type="text" value="{{with .Content}}{{.language}}{{end}}" disabled>
-              <input type="hidden" name="language" id="language" value="{{with .Content}}{{.language}}{{end}}">
+              {{ if .Content }}
+              <input class="input" type="text" value="{{langCodeToName .Content.language}}" disabled>
+              <input type="hidden" name="language" id="language" value="{{.Content.language}}">
+              {{ else }}
+              <input class="input" type="text" value="{{langCodeToName .LanguageCode}}" disabled>
+              <input type="hidden" name="language" id="language" value="{{.LanguageCode}}">
+              {{ end }}
             </p>
           </div>
           <div class="field is-expanded has-addons">
@@ -84,8 +89,15 @@
         <div class="field-body">
           <div class="field">
             <p class="control is-expanded">
-              <input class="input" type="text" value="{{with .Content}}{{.slug}}{{end}}" disabled>
-              <input type="hidden" name="slug" id="slug" value="{{with .Content}}{{.slug}}{{end}}">
+              {{ with .Content }}
+              <input class="input" type="text" value="{{.slug}}" disabled>
+              <input type="hidden" name="slug" id="slug" value="{{.slug}}">
+              {{ else }}
+                {{ with .TranslationSlug }}
+              <input class="input" type="text" value="{{.}}" disabled>
+              <input type="hidden" name="translationslug" id="translationslug" value="{{.}}">
+                {{ end }}
+              {{ end }}
             </p>
           </div>
         </div>
@@ -275,14 +287,14 @@
           <div class="field">
             <div class="control">
               <button class="button is-primary">
-                {{ if hasPrefix .Title "Add" }} Add {{else}} Update {{ end }} {{ title .Name }}
+                {{ .SubmitButton }}
               </button>
             </div>
           </div>
           {{ if hasPrefix .Title "Edit" }}
           <div class="field">
             <div class="control">
-              <a class="button is-primary" href="/admin/content/{{.Name}}/delete?slug={{.Content.slug}}">
+              <a class="button is-danger" href="/admin/content/{{.Name}}/delete?slug={{.Content.slug}}">
                 Delete {{ title .Name }}
               </a>
             </div>
