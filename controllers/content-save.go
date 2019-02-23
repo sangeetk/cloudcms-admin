@@ -64,7 +64,18 @@ func (mc *ContentController) Save() {
 
 		case item.WidgetFile:
 			file, header, err := mc.GetFile(field)
-			if err == nil {
+			if err != nil {
+				// Use file from English version if available
+				if mc.GetString(field+".name") != "" {
+					enFile := item.File{
+						Name: mc.GetString(field + ".name"),
+						URI:  mc.GetString(field + ".uri"),
+					}
+					enFile.Size, _ = mc.GetInt64(field + ".size")
+					contents[field] = enFile
+				}
+				err = nil
+			} else {
 				dst := item.File{
 					Name: header.Filename,
 					Size: header.Size,

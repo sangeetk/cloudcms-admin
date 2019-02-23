@@ -43,7 +43,7 @@
               <a class="button is-info"> Status </a>
             </p>
             <p class="control is-expanded">
-              <input class="input" type="text" name="status" id="status" value="{{with .Content}}{{status .status}}{{end}}" disabled>
+              <input class="input" type="text" name="status" id="status" value="{{with .Content}}{{if .status}}{{status .status}}{{end}}{{end}}" disabled>
             </p>
           </div>
         </div>
@@ -59,7 +59,7 @@
               <a class="button is-info"> C </a>
             </p>
             <p class="control is-expanded">
-              <input class="input" type="text" value="{{with .Content}}{{unixTimeToString .created_at}}{{end}}" disabled>
+              <input class="input" type="text" value="{{with .Content}}{{with .created_at}}{{unixTimeToString .}}{{end}}{{end}}" disabled>
             </p>
           </div>
           <div class="field is-expanded has-addons">
@@ -67,7 +67,7 @@
               <a class="button is-info"> U </a>
             </p>
             <p class="control is-expanded">
-              <input class="input" type="text" value="{{with .Content}}{{unixTimeToString .updated_at}}{{end}}" disabled>
+              <input class="input" type="text" value="{{with .Content}}{{with .updated_at}}{{unixTimeToString .}}{{end}}{{end}}" disabled>
             </p>
           </div>
           <div class="field is-expanded has-addons">
@@ -75,7 +75,7 @@
               <a class="button is-info"> D </a>
             </p>
             <p class="control is-expanded">
-              <input class="input" type="text" value="{{with .Content}}{{unixTimeToString .deleted_at}}{{end}}" disabled>
+              <input class="input" type="text" value="{{with .Content}}{{with .deleted_at}}{{unixTimeToString .}}{{end}}{{end}}" disabled>
             </p>
           </div>
         </div>
@@ -89,15 +89,15 @@
         <div class="field-body">
           <div class="field">
             <p class="control is-expanded">
-              {{ with .Content }}
-              <input class="input" type="text" value="{{.slug}}" disabled>
-              <input type="hidden" name="slug" id="slug" value="{{.slug}}">
+
+              {{ if .TranslationSlug }}
+              <input class="input" type="text" value="{{.TranslationSlug}}" disabled>
+              <input type="hidden" name="translationslug" id="translationslug" value="{{.TranslationSlug}}">
               {{ else }}
-                {{ with .TranslationSlug }}
-              <input class="input" type="text" value="{{.}}" disabled>
-              <input type="hidden" name="translationslug" id="translationslug" value="{{.}}">
-                {{ end }}
+              <input class="input" type="text" value="{{with .Content}}{{.slug}}{{end}}" disabled>
+              <input type="hidden" name="slug" id="slug" value="{{with .Content}}{{.slug}}{{end}}">
               {{ end }}
+
             </p>
           </div>
         </div>
@@ -175,22 +175,37 @@
         </div>
         {{ else if eq $f.Widget "file" }}
         <div class="field-label is-normal">
-          <label class="label">{{ $f.Name }}</label>
+          <label class="label">{{ trimPrefix $f.Name "file:" }}</label>
         </div>
         <div class="field-body">
           <div class="field">
+
             <div class="control is-expanded">
               <div class="file has-name">
                 <label class="file-label">
+                  {{ $file := contentFile $content $name }}
                   <input class="file-input" type="file" name="{{$name}}" id="{{$name}}">
+                  <input type="hidden" name="{{$name}}.name" value="{{with $file}}{{.Name}}{{end}}">
+                  <input type="hidden" name="{{$name}}.size" value="{{with $file}}{{.Size}}{{end}}">
+                  <input type="hidden" name="{{$name}}.uri" value="{{with $file}}{{.URI}}{{end}}">
                   <span class="file-cta">
                     <span class="file-icon"> <i class="fas fa-upload"></i> </span>
-                    <span class="file-label"> Select {{$f.Name}}... </span>
+                    <span class="file-label"> Select {{ trimPrefix $f.Name "file:" }}... </span>
                   </span>
-                  <span class="button is-white"> {{contentFileValue $content $name}} </span>
+                  <span class="button is-white"> {{with $file}}{{.Name}}{{end}} </span>
                 </label>
               </div>
             </div>
+
+            <div class="control is-expanded">
+              <br>
+              {{with $file}}
+                {{with .URI}}
+              <img src="http://{{getenv "CLOUDCMS_SVC"}}{{.}}">
+                {{end}}
+              {{end}}
+            </div>
+
           </div>
         </div>
         {{ else if eq $f.Widget "select" }}

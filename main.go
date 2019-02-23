@@ -1,6 +1,7 @@
 package main
 
 import (
+	"os"
 	"strings"
 
 	_ "git.urantiatech.com/cloudcms/cloudcms-admin/routers"
@@ -23,10 +24,12 @@ func main() {
 	beego.AddFuncMap("contentTextValue", views.ContentTextValue)
 	beego.AddFuncMap("contentDateValue", views.ContentDateValue)
 	beego.AddFuncMap("contentTagsValue", views.ContentTagsValue)
-	beego.AddFuncMap("contentFileValue", views.ContentFileValue)
+	beego.AddFuncMap("contentFile", views.ContentFile)
 	beego.AddFuncMap("currentDate", views.CurrentDate)
 	beego.AddFuncMap("langCodeToName", lang.CodeToName)
 	beego.AddFuncMap("langNameToCode", lang.NameToCode)
+	beego.AddFuncMap("getenv", os.Getenv)
+	beego.AddFuncMap("trimPrefix", strings.TrimPrefix)
 
 	beego.Run()
 }

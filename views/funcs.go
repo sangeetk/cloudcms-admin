@@ -89,12 +89,17 @@ func ContentTagsValue(content map[string]interface{}, field string) string {
 	return ""
 }
 
-// ContentFileValue gets value of file field from the content map
-func ContentFileValue(content map[string]interface{}, field string) string {
+// ContentFile gets value of file field from the content map
+func ContentFile(content map[string]interface{}, field string) *item.File {
+	var file *item.File
 	if name, ok := content[field+".name"]; ok {
-		return fmt.Sprintf("%s (%d bytes)", name.(string), int64(content[field+".size"].(float64)))
+		file = &item.File{
+			Name: name.(string),
+			Size: int64(content[field+".size"].(float64)),
+			URI:  content[field+".uri"].(string),
+		}
 	}
-	return "none"
+	return file
 }
 
 // CurrentDate in YYYY-MM-DD
