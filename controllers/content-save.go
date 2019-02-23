@@ -117,24 +117,3 @@ func (mc *ContentController) Save() {
 
 	mc.Redirect("/admin/content/"+name, http.StatusSeeOther)
 }
-
-/*
-	// This is how you add file
-	file, header, err := pc.GetFile("image")
-	if err == nil {
-		//create destination file making sure the path is writeable.
-		dst, err := os.Create("uploads/" + header.Filename)
-		if err != nil {
-			pc.Data["Error"] = "Error:" + err.Error()
-			return
-		}
-		defer dst.Close()
-
-		//copy the uploaded file to the destination file
-		if _, err := io.Copy(dst, file); err != nil {
-			pc.Data["Error"] = "Can't copy file: " + dst.Name()
-			return
-		}
-		product.Image = header.Filename
-	}
-*/
