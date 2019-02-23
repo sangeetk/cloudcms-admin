@@ -4,7 +4,7 @@
       General
     </p>
     <ul class="menu-list">
-      <li><a class="is-active" href="/admin"><span class="icon is-small"><i class="fa fa-tachometer"></i></span> Dashboard</a></li>
+      <li><a class="is-active" href="/admin/dashboard"><span class="icon is-small"><i class="fa fa-tachometer"></i></span> Dashboard</a></li>
     </ul>
 
     <p class="menu-label">

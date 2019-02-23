@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"fmt"
+	"io"
 	"net/http"
 	"os"
 	"strings"
@@ -61,6 +62,27 @@ func (mc *ContentController) Save() {
 			}
 			contents[field] = tags
 
+		case item.WidgetFile:
+			file, header, err := mc.GetFile(field)
+			if err == nil {
+				dst := item.File{
+					Name: header.Filename,
+					Size: header.Size,
+				}
+				// copy the uploaded file to the destination file
+				if _, err := io.Copy(&dst, file); err != nil {
+					flash.Error(fmt.Sprintf("Error: %s", err.Error()))
+					flash.Store(&mc.Controller)
+					if slug := mc.GetString("slug"); slug != "" {
+						mc.Redirect("/admin/content/"+name+"/editor?slug="+slug, http.StatusSeeOther)
+					} else {
+						mc.Redirect("/admin/content/"+name+"/editor", http.StatusSeeOther)
+					}
+					return
+				}
+				contents[field] = dst
+			}
+
 		default:
 			contents[field] = mc.GetString(field)
 		}
@@ -95,3 +117,24 @@ func (mc *ContentController) Save() {
 
 	mc.Redirect("/admin/content/"+name, http.StatusSeeOther)
 }
+
+/*
+	// This is how you add file
+	file, header, err := pc.GetFile("image")
+	if err == nil {
+		//create destination file making sure the path is writeable.
+		dst, err := os.Create("uploads/" + header.Filename)
+		if err != nil {
+			pc.Data["Error"] = "Error:" + err.Error()
+			return
+		}
+		defer dst.Close()
+
+		//copy the uploaded file to the destination file
+		if _, err := io.Copy(dst, file); err != nil {
+			pc.Data["Error"] = "Can't copy file: " + dst.Name()
+			return
+		}
+		product.Image = header.Filename
+	}
+*/

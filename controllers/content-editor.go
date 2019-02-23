@@ -40,7 +40,7 @@ func (mc *ContentController) Editor() {
 		} else {
 			mc.Data["Title"] = "Add " + lang.CodeToName(GetLanguage(mc.Ctx)) + " Translation"
 			mc.Data["TranslationSlug"] = slug
-			mc.Data["SubmitButton"] = "Add Translation"
+			mc.Data["SubmitButton"] = "Add " + lang.CodeToName(GetLanguage(mc.Ctx)) + " Translation"
 		}
 	}
 

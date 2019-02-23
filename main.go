@@ -23,6 +23,7 @@ func main() {
 	beego.AddFuncMap("contentTextValue", views.ContentTextValue)
 	beego.AddFuncMap("contentDateValue", views.ContentDateValue)
 	beego.AddFuncMap("contentTagsValue", views.ContentTagsValue)
+	beego.AddFuncMap("contentFileValue", views.ContentFileValue)
 	beego.AddFuncMap("currentDate", views.CurrentDate)
 	beego.AddFuncMap("langCodeToName", lang.CodeToName)
 	beego.AddFuncMap("langNameToCode", lang.NameToCode)

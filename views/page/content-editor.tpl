@@ -7,7 +7,7 @@
   <div class="columns is-multiline">
     <div class="column is-11">
 
-<form method="POST" action="/admin/content/{{.Name}}">
+<form method="POST" action="/admin/content/{{.Name}}" enctype="multipart/form-data">
 
 
       <div class="field is-horizontal">
@@ -179,7 +179,7 @@
         </div>
         <div class="field-body">
           <div class="field">
-            <div class="control">
+            <div class="control is-expanded">
               <div class="file has-name">
                 <label class="file-label">
                   <input class="file-input" type="file" name="{{$name}}" id="{{$name}}">
@@ -187,7 +187,7 @@
                     <span class="file-icon"> <i class="fas fa-upload"></i> </span>
                     <span class="file-label"> Select {{$f.Name}}... </span>
                   </span>
-                  <span class="file-name"> </span>
+                  <span class="button is-white"> {{contentFileValue $content $name}} </span>
                 </label>
               </div>
             </div>

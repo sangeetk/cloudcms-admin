@@ -89,6 +89,14 @@ func ContentTagsValue(content map[string]interface{}, field string) string {
 	return ""
 }
 
+// ContentFileValue gets value of file field from the content map
+func ContentFileValue(content map[string]interface{}, field string) string {
+	if name, ok := content[field+".name"]; ok {
+		return fmt.Sprintf("%s (%d bytes)", name.(string), int64(content[field+".size"].(float64)))
+	}
+	return "none"
+}
+
 // CurrentDate in YYYY-MM-DD
 func CurrentDate() string {
 	return time.Now().Format("2006-01-02")
