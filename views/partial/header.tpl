@@ -4,7 +4,7 @@
         <div class="navbar-brand">
 
           <a class="navbar-item is--brand" href="/admin">
-            <img class="navbar-brand-logo" src="/admin/theme/navbar-logo.png" alt="Bulma Admin Template logo">
+            <img class="navbar-brand-logo" src="{{with getenv "NAVBAR_IMAGE"}}{{.}}{{else}}/admin/theme/navbar.png{{end}}" alt="CloudCMS Admin">
           </a>
           <a class="navbar-item is-tab is-hidden-mobile is-active"><span class="icon is-medium"><i class="fa fa-home"></i></span>Home</a>
 
