@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin Login</title>
     <!-- Bulma Version 0.7.2-->
-    <link rel="stylesheet" type="text/css" href="/badmin/css/bulma.min.css">
+    <link rel="stylesheet" type="text/css" href="/admin/theme/css/bulma.min.css">
     <style type="text/css">
         html,body {
           font-family: 'Open Sans', serif;
@@ -64,7 +64,7 @@
                     <div class="box">
                         <figure class="avatar">
                             {{ $logo := getenv "LOGO"}}
-                            <img src="{{if $logo}}{{$logo}}{{else}}/badmin/hunabku.png{{end}}" height="128" width="128">
+                            <img src="{{if $logo}}{{$logo}}{{else}}/admin/theme/hunabku.png{{end}}" height="128" width="128">
                         </figure>
                         <form method="POST" action="/admin">
                             <div class="field">
@@ -94,7 +94,7 @@
             </div>
         </div>
     </section>
-    <script async type="text/javascript" src="/badmin/js/login.js"></script>
+    <script async type="text/javascript" src="/admin/theme/js/login.js"></script>
 </body>
 
 </html>

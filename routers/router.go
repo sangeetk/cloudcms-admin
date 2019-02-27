@@ -22,7 +22,7 @@ func init() {
 		beego.Router("/admin/logout", &controllers.LogoutController{})
 
 		// Admin static files
-		beego.SetStaticPath("/badmin", "static/badmin")
+		beego.SetStaticPath("/admin/theme", "static")
 	}
 	// beego.ErrorController(&controllers.ErrorController{})
 

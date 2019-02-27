@@ -11,12 +11,12 @@
   <meta name="author" content="Urantia Tech" />
   <title>CloudCMS Admin - {{ .Title }}</title>
 
-  <link rel="stylesheet" href="/badmin/css/bulma.min.css">
-  <link rel="stylesheet" href="/badmin/fontawesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/admin/theme/css/bulma.min.css">
+  <link rel="stylesheet" href="/admin/theme/fontawesome/css/font-awesome.min.css">
 
-  <link rel="stylesheet" href="/badmin/dist/main.css">
-  <link rel="stylesheet" type="text/css" href="/badmin/trix/trix.css">
-  <script type="text/javascript" src="/badmin/trix/trix.js"></script>
+  <link rel="stylesheet" href="/admin/theme/dist/main.css">
+  <link rel="stylesheet" type="text/css" href="/admin/theme/trix/trix.css">
+  <script type="text/javascript" src="/admin/theme/trix/trix.js"></script>
 </head>
 
 <body>
@@ -70,8 +70,8 @@
     </div>
   </div>
 
-  <script src="/badmin/dist/build.js"></script>
-  <script defer src="/badmin/fontawesome/js/all.js"></script>
+  <script src="/admin/theme/dist/build.js"></script>
+  <script defer src="/admin/theme/fontawesome/js/all.js"></script>
 
 </body>
 

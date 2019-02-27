@@ -4,7 +4,7 @@
         <div class="navbar-brand">
 
           <a class="navbar-item is--brand" href="/admin">
-            <img class="navbar-brand-logo" src="/badmin/navbar-logo.png" alt="Bulma Admin Template logo">
+            <img class="navbar-brand-logo" src="/admin/theme/navbar-logo.png" alt="Bulma Admin Template logo">
           </a>
           <a class="navbar-item is-tab is-hidden-mobile is-active"><span class="icon is-medium"><i class="fa fa-home"></i></span>Home</a>
 
@@ -22,7 +22,7 @@
           <div class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-link">
               <figure class="image is-32x32" style="margin-right:.5em;">
-                <img src="/badmin/hunabku.png">
+                <img src="/admin/theme/hunabku.png">
               </figure>
               Administrator
             </a>
