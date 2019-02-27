@@ -95,6 +95,7 @@ func ContentFile(content map[string]interface{}, field string) *item.File {
 	if name, ok := content[field+".name"]; ok {
 		file = &item.File{
 			Name: name.(string),
+			Type: content[field+".type"].(string),
 			Size: int64(content[field+".size"].(float64)),
 			URI:  content[field+".uri"].(string),
 		}

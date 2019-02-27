@@ -3,6 +3,7 @@ package controllers
 import (
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"os"
 	"strings"
@@ -69,6 +70,7 @@ func (mc *ContentController) Save() {
 				if mc.GetString(field+".name") != "" {
 					enFile := item.File{
 						Name: mc.GetString(field + ".name"),
+						Type: mc.GetString(field + ".type"),
 						URI:  mc.GetString(field + ".uri"),
 					}
 					enFile.Size, _ = mc.GetInt64(field + ".size")
@@ -78,8 +80,10 @@ func (mc *ContentController) Save() {
 			} else {
 				dst := item.File{
 					Name: header.Filename,
+					Type: Schema[name].Fields[i].FileType,
 					Size: header.Size,
 				}
+				log.Println(dst)
 				// copy the uploaded file to the destination file
 				if _, err := io.Copy(&dst, file); err != nil {
 					flash.Error(fmt.Sprintf("Error: %s", err.Error()))

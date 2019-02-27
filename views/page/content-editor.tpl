@@ -188,6 +188,7 @@
                   <input type="hidden" name="{{$name}}.name" value="{{with $file}}{{.Name}}{{end}}">
                   <input type="hidden" name="{{$name}}.size" value="{{with $file}}{{.Size}}{{end}}">
                   <input type="hidden" name="{{$name}}.uri" value="{{with $file}}{{.URI}}{{end}}">
+                  <input type="hidden" name="{{$name}}.type" value="{{$f.FileType}}">
                   <span class="file-cta">
                     <span class="file-icon"> <i class="fas fa-upload"></i> </span>
                     <span class="file-label"> Select {{ trimPrefix $f.Name "file:" }}... </span>
@@ -200,8 +201,10 @@
             <div class="control is-expanded">
               <br>
               {{with $file}}
-                {{with .URI}}
-              <img src="http://{{getenv "CLOUDCMS_SVC"}}{{.}}">
+                {{if eq .Type "image"}}
+                  {{with .URI}}
+                    <img src="http://{{getenv "CLOUDDRIVE_SVC"}}{{.}}">
+                  {{end}}
                 {{end}}
               {{end}}
             </div>
