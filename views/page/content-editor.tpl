@@ -112,29 +112,40 @@
       {{ if hasPrefix .Title "Add" }} {{ $newContent = true}} {{ end }}
 
       {{ range $f := .Fields }}
+      {{ $name := lowercase $f.Name }}
+
+      {{ $fields = appendField $fields $f }}
+      {{ if $f.UseForSlug }}
+        {{ $useforslug = appendField $useforslug $f }}
+      {{ end }}
+
+      {{ if eq $f.Widget "input" }}
+      {{ if not $f.SkipHeader }}
       <div class="field is-horizontal">
-        {{ $name := lowercase $f.Name }}
-
-        {{ $fields = appendField $fields $f }}
-        {{ if $f.UseForSlug }}
-          {{ $useforslug = appendField $useforslug $f }}
-        {{ end }}
-
-        {{ if eq $f.Widget "input" }}
         <div class="field-label is-normal">
-          <label class="label">{{ $f.Name }}</label>
+          <label class="label">{{if $f.Heading}}{{$f.Heading}}{{else}}{{$f.Name}}{{end}}</label>
         </div>
         <div class="field-body">
-          <div class="field">
-            <div class="control">
+        {{ end }}
+          <div class="field has-addons">
+            {{ if $f.HasLabel }}
+            <p class="control">
+              <a class="button is-disabled"> {{ $f.Name }} </a>
+            </p>
+            {{ end }}
+            <div class="control is-expanded">
               <input class="input" type="text" id="{{$name}}" name="{{$name}}" 
                 value="{{contentTextValue $content $name}}" placeholder="{{ $f.Helptext }}">
             </div>
           </div>
+        {{ if not $f.SkipFooter }}
         </div>
-        {{ else if eq $f.Widget "textarea" }}
+      </div>
+      {{ end }}
+      {{ else if eq $f.Widget "textarea" }}
+      <div class="field is-horizontal">
         <div class="field-label is-normal">
-          <label class="label">{{ $f.Name }}</label>
+          <label class="label">{{if $f.Heading}}{{$f.Heading}}{{else}}{{$f.Name}}{{end}}</label>
         </div>
         <div class="field-body">
           <div class="field">
@@ -144,9 +155,11 @@
             </div>
           </div>
         </div>
-        {{ else if eq $f.Widget "richtext" }}
+      </div>
+      {{ else if eq $f.Widget "richtext" }}
+      <div class="field is-horizontal">
         <div class="field-label is-normal">
-          <label class="label">{{ $f.Name }}</label>
+          <label class="label">{{if $f.Heading}}{{$f.Heading}}{{else}}{{$f.Name}}{{end}}</label>
         </div>
         <div class="field-body">
           <div class="field">
@@ -156,13 +169,22 @@
             </div>
           </div>
         </div>
-        {{ else if eq $f.Widget "date" }}
+      </div>
+      {{ else if eq $f.Widget "date" }}
+      {{ if not $f.SkipHeader }}
+      <div class="field is-horizontal">
         <div class="field-label is-normal">
-          <label class="label">{{ $f.Name }}</label>
+          <label class="label">{{if $f.Heading}}{{$f.Heading}}{{else}}{{$f.Name}}{{end}}</label>
         </div>
         <div class="field-body">
-          <div class="field">
-            <div class="control">
+        {{ end }}
+          <div class="field has-addons">
+            {{ if $f.HasLabel }}
+            <p class="control">
+              <a class="button is-disabled"> {{ $f.Name }} </a>
+            </p>
+            {{ end }}
+            <div class="control is-expanded">
               <input class="input" type="text" name="{{$name}}" id="{{$name}}" 
               {{ if $newContent }} 
                 value="{{ currentDate }}"
@@ -172,15 +194,18 @@
               placeholder="{{$f.Helptext}}">
             </div>
           </div>
+        {{ if not $f.SkipFooter }}
         </div>
-        {{ else if eq $f.Widget "file" }}
+      </div>
+      {{ end }}
+      {{ else if eq $f.Widget "file" }}
+      <div class="field is-horizontal">
         <div class="field-label is-normal">
           <label class="label">{{ trimPrefix $f.Name "file:" }}</label>
         </div>
         <div class="field-body">
           <div class="field">
-
-            <div class="control is-expanded">
+            <div class="control">
               <div class="file has-name">
                 <label class="file-label">
                   {{ $file := contentFile $content $name }}
@@ -211,13 +236,20 @@
 
           </div>
         </div>
-        {{ else if eq $f.Widget "select" }}
+      </div>
+      {{ else if eq $f.Widget "select" }}
+      <div class="field is-horizontal">
         <div class="field-label is-normal">
-          <label class="label">{{ $f.Name }}</label>
+          <label class="label">{{if $f.Heading}}{{$f.Heading}}{{else}}{{$f.Name}}{{end}}</label>
         </div>
         <div class="field-body">
-          <div class="field">
-            <div class="control">
+          <div class="field has-addons">
+            {{ if $f.Label }}
+            <p class="control">
+              <a class="button is-info"> {{ $f.Label }} </a>
+            </p>
+            {{ end }}
+            <div class="control is-expanded">
               <div class="select is-normal">
                 <select>
                   <option> -- None -- </option>
@@ -227,13 +259,20 @@
             </div>
           </div>
         </div>
-        {{ else if eq $f.Widget "selectmultiple" }}
+      </div>
+      {{ else if eq $f.Widget "selectmultiple" }}
+      <div class="field is-horizontal">
         <div class="field-label is-normal">
-          <label class="label">{{ $f.Name }}</label>
+          <label class="label">{{if $f.Heading}}{{$f.Heading}}{{else}}{{$f.Name}}{{end}}</label>
         </div>
         <div class="field-body">
-          <div class="field">
-            <div class="control">
+          <div class="field has-addons">
+            {{ if $f.HasLabel }}
+            <p class="control">
+              <a class="button is-info"> {{ $f.Name }} </a>
+            </p>
+            {{ end }}
+            <div class="control is-expanded">
               <div class="select is-normal is-multiple">
                 <select multiple size="5">
                   <option> -- None -- </option>
@@ -246,24 +285,42 @@
             </div>
           </div>
         </div>
-        {{ else if eq $f.Widget "tags" }}
+      </div>
+      {{ else if eq $f.Widget "tags" }}
+      {{ if not $f.SkipHeader }}
+      <div class="field is-horizontal">
         <div class="field-label is-normal">
-          <label class="label">{{ $f.Name }}</label>
+          <label class="label">{{if $f.Heading}}{{$f.Heading}}{{else}}{{$f.Name}}{{end}}</label>
         </div>
         <div class="field-body">
-          <div class="field">
+        {{ end }}
+          <div class="field has-addons">
+            {{ if $f.HasLabel }}
+            <p class="control">
+              <a class="button is-disabled"> {{ $f.Name }} </a>
+            </p>
+            {{ end }}
             <p class="control is-expanded">
               <input class="input" type="text" name="{{$name}}" id="{{$name}}" value="{{contentTagsValue $content $name}}" placeholder="{{$f.Helptext}}">
             </p>
           </div>
+        {{ if not $f.SkipFooter }}
         </div>
-        {{ else if eq $f.Widget "checkbox" }}
+      </div>
+      {{ end }}
+      {{ else if eq $f.Widget "checkbox" }}
+      <div class="field is-horizontal">
         <div class="field-label is-normal">
-          <label class="label">{{ $f.Name }}</label>
+          <label class="label">{{if $f.Heading}}{{$f.Heading}}{{else}}{{$f.Name}}{{end}}</label>
         </div>
         <div class="field-body">
-          <div class="field">
-            <div class="control">
+          <div class="field has-addons">
+            {{ if $f.HasLabel }}
+            <p class="control">
+              <a class="button is-info"> {{ $f.Name }} </a>
+            </p>
+            {{ end }}
+            <div class="control is-expanded">
               <label class="checkbox">
                 <input type="checkbox" checked="yes">
                 {{ $f.Helptext }}
@@ -271,13 +328,20 @@
             </div>
           </div>
         </div>
-        {{ else if eq $f.Widget "radio" }}
+      </div>
+      {{ else if eq $f.Widget "radio" }}
+      <div class="field is-horizontal">
         <div class="field-label is-normal">
-          <label class="label">{{ $f.Name }}</label>
+          <label class="label">{{if $f.Heading}}{{$f.Heading}}{{else}}{{$f.Name}}{{end}}</label>
         </div>
         <div class="field-body">
-          <div class="field">
-            <div class="control">
+          <div class="field has-addons">
+            {{ if $f.HasLabel }}
+            <p class="control">
+              <a class="button is-info"> {{ $f.Name }} </a>
+            </p>
+            {{ end }}
+            <div class="control is-expanded">
               <label class="radio">
                 <input type="radio" name="foobar">
                 Foo
@@ -289,8 +353,9 @@
             </div>
           </div>
         </div>
-        {{ end }}
       </div>
+      {{ end }}
+
       {{ end }}
       
       <input type="hidden" name="fields" value="{{$fields}}">

@@ -15,7 +15,7 @@
     </ul>
 
     <p class="menu-label">
-      CMS Contents
+      Contents
     </p>
     <ul class="menu-list">
       {{ range $name, $fields := .Schema }}
@@ -24,12 +24,12 @@
     </ul>
 
     <p class="menu-label">
-      Global Services
+      Global Contents
     </p>
     <ul class="menu-list">
-      <li><a href="/admin/transcripts"><span class="icon is-small"><i class="fa fa-file"></i></span> Transcripts</a></li>
-      <li><a href="/admin/transcripts"><span class="icon is-small"><i class="fa fa-book"></i></span> Urantia Book</a></li>
-      <li><a href="/admin/blogs"><span class="icon is-small"><i class="fa fa-book"></i></span> UB Dictionary</a></li>
+      {{ range $name, $fields := .GlobalSchema }}
+      <li><a href="/admin/content/{{$name}}"><span class="icon is-small"><i class="fa fa-cogs"></i></span> {{title $name}}</a></li>
+      {{ end }}
     </ul>
 
 
