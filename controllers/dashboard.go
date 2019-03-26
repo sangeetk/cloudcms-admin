@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"net/http"
-	"os"
 
 	"git.urantiatech.com/cloudcms/cloudcms/api"
 	"github.com/urantiatech/beego"

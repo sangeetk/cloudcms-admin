@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"net/http"
-	"os"
 	"strings"
 
 	"git.urantiatech.com/cloudcms/cloudcms/api"
