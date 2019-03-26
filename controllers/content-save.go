@@ -111,13 +111,13 @@ func (mc *ContentController) Save() {
 	if slug == "" && translationslug == "" {
 		// Create Request
 		slug = contents[mc.GetString("useforslug")].(string)
-		_, err = api.Create(name, GetLanguage(mc.Ctx), slug, contents, os.Getenv("CLOUDCMS_SVC"))
+		_, err = api.Create(name, GetLanguage(mc.Ctx), slug, contents, CurrentCMS)
 	} else if slug == "" && translationslug != "" {
 		// New Translation Request
-		_, err = api.Create(name, mc.GetString("language"), translationslug, contents, os.Getenv("CLOUDCMS_SVC"))
+		_, err = api.Create(name, mc.GetString("language"), translationslug, contents, CurrentCMS)
 	} else {
 		// Update Reuest
-		_, err = api.Update(name, mc.GetString("language"), slug, contents, os.Getenv("CLOUDCMS_SVC"))
+		_, err = api.Update(name, mc.GetString("language"), slug, contents, CurrentCMS)
 	}
 	if err != nil {
 		flash.Error(fmt.Sprintf("Error: %s", err.Error()))

@@ -78,6 +78,20 @@
                                     <input class="input is-large" name="password" type="password" placeholder="Password" >
                                 </div>
                             </div>
+
+                            <div class="field">
+                                <div class="control">
+                                    <select class="input is-large" name="cloudcms">
+                                    {{ with .CloudCMS }}
+                                    <option>{{.}}</option>
+                                    {{ end }}
+                                    {{ range $cms := .CloudCMSes }}
+                                    <option>{{$cms}}</option>
+                                    {{ end }}
+                                    </select>
+                                </div>
+                            </div>
+
                             <div class="field">
                                 <label class="checkbox">
                                     <input type="checkbox">

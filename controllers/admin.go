@@ -4,6 +4,7 @@ import (
 	"errors"
 	"net/http"
 	"os"
+	"strings"
 
 	"git.urantiatech.com/cloudcms/cloudcms/api"
 	"github.com/urantiatech/beego"
@@ -24,12 +25,27 @@ var Schema map[string]api.ContentType
 // Languages supported
 var Languages []string
 
+// CloudCMSes list
+var CloudCMSes []string
+
+// CurrentCMS to connect
+var CurrentCMS string
+
 // Get request handler
 func (ac *AdminController) Get() {
 	if err := Authenticate(ac.Ctx); err != nil {
 		ac.TplName = "page/login.tpl"
 		ac.Data["Title"] = "Admin Login"
 		ac.Data["Error"] = err.Error()
+
+		if len(os.Getenv("CLOUDCMS_SVCS")) > 0 {
+			CloudCMSes = strings.Split(os.Getenv("CLOUDCMS_SVCS"), ",")
+			for i, c := range CloudCMSes {
+				CloudCMSes[i] = strings.TrimSpace(c)
+			}
+			ac.Data["CloudCMSes"] = CloudCMSes
+		}
+		ac.Data["CloudCMS"] = os.Getenv("CLOUDCMS_SVC")
 		return
 	}
 
@@ -63,12 +79,15 @@ func (ac *AdminController) Post() {
 		return
 	}
 
+	// Set the current CloudCMS instance
+	CurrentCMS = ac.GetString("cloudcms")
+
 	// Set Auth Cookie
 	signkey := beego.AppConfig.String("signkey")
 	ac.SetSecureCookie(signkey, "AuthCookie", authToken)
 
 	if Schema == nil {
-		Languages, Schema, _ = api.Schema(os.Getenv("CLOUDCMS_SVC"))
+		Languages, Schema, _ = api.Schema(CurrentCMS)
 	}
 
 	// Redirect to Dashboard after login

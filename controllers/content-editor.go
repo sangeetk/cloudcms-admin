@@ -34,7 +34,7 @@ func (mc *ContentController) Editor() {
 		mc.Data["Title"] = "Add " + lang.CodeToName(GetLanguage(mc.Ctx)) + " " + strings.Title(name)
 		mc.Data["SubmitButton"] = "Add " + lang.CodeToName(GetLanguage(mc.Ctx)) + " " + strings.Title(name)
 	} else {
-		c, _ := api.Read(name, GetLanguage(mc.Ctx), slug, os.Getenv("CLOUDCMS_SVC"))
+		c, _ := api.Read(name, GetLanguage(mc.Ctx), slug, CurrentCMS)
 		if c != nil {
 			// Edit
 			mc.Data["Content"] = c.(map[string]interface{})
@@ -42,7 +42,7 @@ func (mc *ContentController) Editor() {
 			mc.Data["SubmitButton"] = "Update " + " " + strings.Title(name)
 		} else {
 			// Trsnalation
-			c, _ = api.Read(name, language.English.String(), slug, os.Getenv("CLOUDCMS_SVC"))
+			c, _ = api.Read(name, language.English.String(), slug, CurrentCMS)
 			if c != nil {
 				enContent := c.(map[string]interface{})
 				enContent["language"] = GetLanguage(mc.Ctx)

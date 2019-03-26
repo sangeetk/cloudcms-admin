@@ -22,7 +22,7 @@ func (dc *DashboardController) Get() {
 	}
 
 	if Schema == nil {
-		Languages, Schema, _ = api.Schema(os.Getenv("CLOUDCMS_SVC"))
+		Languages, Schema, _ = api.Schema(CurrentCMS)
 	}
 
 	dc.TplName = "page/dashboard.tpl"

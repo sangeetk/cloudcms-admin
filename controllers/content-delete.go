@@ -32,7 +32,7 @@ func (mc *ContentController) Delete() {
 		return
 	}
 
-	_, err := api.Delete(name, GetLanguage(mc.Ctx), slug, os.Getenv("CLOUDCMS_SVC"))
+	_, err := api.Delete(name, GetLanguage(mc.Ctx), slug, CurrentCMS)
 	if err != nil {
 		flash := beego.NewFlash()
 		flash.Error(fmt.Sprintf("Error: %s", err.Error()))
