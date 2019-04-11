@@ -105,6 +105,7 @@
 
       <br>
 
+      {{ $currentCMS := .CurrentCMS }}
       {{ $fields := "" }}
       {{ $useforslug := "" }}
       {{ $content := .Content }}
@@ -228,7 +229,7 @@
               {{with $file}}
                 {{if eq .Type "image"}}
                   {{with .URI}}
-                    <img src="http://{{getenv "CLOUDDRIVE_SVC"}}{{.}}">
+                  <img src="http://{{$currentCMS}}/{{.}}">
                   {{end}}
                 {{end}}
               {{end}}

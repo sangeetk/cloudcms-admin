@@ -15,6 +15,7 @@ func (mc *ContentController) Editor() {
 	mc.Data["Languages"] = Languages
 	mc.Data["LanguageCode"] = GetLanguage(mc.Ctx)
 	mc.Data["URI"] = mc.Ctx.Request.URL.String()
+	mc.Data["CurrentCMS"] = CurrentCMS
 
 	if Authenticate(mc.Ctx) != nil {
 		// Redirect to login page
