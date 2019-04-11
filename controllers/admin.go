@@ -86,9 +86,7 @@ func (ac *AdminController) Post() {
 	signkey := beego.AppConfig.String("signkey")
 	ac.SetSecureCookie(signkey, "AuthCookie", authToken)
 
-	if Schema == nil {
-		Languages, Schema, _ = api.Schema(CurrentCMS)
-	}
+	Languages, Schema, _ = api.Schema(CurrentCMS)
 
 	// Redirect to Dashboard after login
 	ac.Redirect("/admin/dashboard", http.StatusSeeOther)
