@@ -229,7 +229,7 @@
               {{with $file}}
                 {{if eq .Type "image"}}
                   {{with .URI}}
-                  <img src="http://{{$currentCMS}}/{{.}}">
+                  <img src="{{ drive .}}">
                   {{end}}
                 {{end}}
               {{end}}

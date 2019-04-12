@@ -30,6 +30,7 @@ func main() {
 	beego.AddFuncMap("langNameToCode", lang.NameToCode)
 	beego.AddFuncMap("getenv", os.Getenv)
 	beego.AddFuncMap("trimPrefix", strings.TrimPrefix)
+	beego.AddFuncMap("drive", views.CloudDrive)
 
 	beego.Run()
 }

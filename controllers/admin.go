@@ -2,10 +2,12 @@ package controllers
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 	"os"
 	"strings"
 
+	"git.urantiatech.com/cloudcms/cloudcms-admin/views"
 	"git.urantiatech.com/cloudcms/cloudcms/api"
 	"github.com/urantiatech/beego"
 	"github.com/urantiatech/beego/context"
@@ -81,6 +83,16 @@ func (ac *AdminController) Post() {
 
 	// Set the current CloudCMS instance
 	CurrentCMS = ac.GetString("cloudcms")
+
+	if CurrentCMS == os.Getenv("CLOUDCMS_SVC") {
+		views.DriveX = "drive"
+	} else {
+		for i, cms := range CloudCMSes {
+			if CurrentCMS == cms {
+				views.DriveX = fmt.Sprintf("drive%d", i+1)
+			}
+		}
+	}
 
 	// Set Auth Cookie
 	signkey := beego.AppConfig.String("signkey")

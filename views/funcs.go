@@ -8,6 +8,9 @@ import (
 	"git.urantiatech.com/cloudcms/cloudcms/item"
 )
 
+// DriveX mapping
+var DriveX string
+
 // Status prints status header field
 func Status(s string) string {
 	if s == "" {
@@ -106,4 +109,9 @@ func ContentFile(content map[string]interface{}, field string) *item.File {
 // CurrentDate in YYYY-MM-DD
 func CurrentDate() string {
 	return time.Now().Format("2006-01-02")
+}
+
+// CloudDrive mapping
+func CloudDrive(s string) string {
+	return strings.Replace(s, "drive", DriveX, 1)
 }
