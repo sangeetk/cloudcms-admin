@@ -109,11 +109,19 @@ func (mc *ContentController) Save() {
 
 	if slug == "" && translationslug == "" {
 		// Create Request
-		slug = contents[mc.GetString("useforslug")].(string)
-		_, err = api.Create(name, GetLanguage(mc.Ctx), slug, contents, CurrentCMS)
+		if mc.GetString("useasslug") != "" {
+			slug = contents[mc.GetString("useasslug")].(string)
+			_, err = api.Create(name, GetLanguage(mc.Ctx), slug, "", contents, CurrentCMS)
+		} else if mc.GetString("useforslug") != "" {
+			slugtext := contents[mc.GetString("useforslug")].(string)
+			_, err = api.Create(name, GetLanguage(mc.Ctx), "", slugtext, contents, CurrentCMS)
+		} else {
+			// Do nothing
+			return
+		}
 	} else if slug == "" && translationslug != "" {
 		// New Translation Request
-		_, err = api.Create(name, mc.GetString("language"), translationslug, contents, CurrentCMS)
+		_, err = api.Create(name, mc.GetString("language"), translationslug, "", contents, CurrentCMS)
 	} else {
 		// Update Reuest
 		_, err = api.Update(name, mc.GetString("language"), slug, contents, CurrentCMS)

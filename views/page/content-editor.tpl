@@ -107,6 +107,7 @@
 
       {{ $currentCMS := .CurrentCMS }}
       {{ $fields := "" }}
+      {{ $useasslug := "" }}
       {{ $useforslug := "" }}
       {{ $content := .Content }}
       {{ $newContent := false }}
@@ -116,6 +117,9 @@
       {{ $name := lowercase $f.Name }}
 
       {{ $fields = appendField $fields $f }}
+      {{ if $f.UseAsSlug }}
+        {{ $useasslug = lowercase $f.Name }}
+      {{ end }}
       {{ if $f.UseForSlug }}
         {{ $useforslug = appendField $useforslug $f }}
       {{ end }}
@@ -360,6 +364,7 @@
       {{ end }}
       
       <input type="hidden" name="fields" value="{{$fields}}">
+      <input type="hidden" name="useasslug" value="{{$useasslug}}">
       <input type="hidden" name="useforslug" value="{{$useforslug}}">
       <br>
 
