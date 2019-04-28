@@ -9,6 +9,6 @@ prod:
 
 dev:
 	GOOS=linux CGO_ENABLED=0 go build -a -installsuffix cgo -o cloudcms-admin .
-	- docker image rm localhost:5000/cloudcms/cloudcms-admin 
-	docker build -t localhost:5000/cloudcms/cloudcms-admin .
-	docker push localhost:5000/cloudcms/cloudcms-admin
+	- docker image rm localhost:32000/cloudcms/cloudcms-admin 
+	docker build -t localhost:32000/cloudcms/cloudcms-admin .
+	docker push localhost:32000/cloudcms/cloudcms-admin
