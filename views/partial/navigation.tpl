@@ -23,16 +23,6 @@
       {{ end }}
     </ul>
 
-    <p class="menu-label">
-      Global Contents
-    </p>
-    <ul class="menu-list">
-      {{ range $name, $fields := .GlobalSchema }}
-      <li><a href="/admin/content/{{$name}}"><span class="icon is-small"><i class="fa fa-cogs"></i></span> {{title $name}}</a></li>
-      {{ end }}
-    </ul>
-
-
     <!-- p class="menu-label">
       Users
     </p>

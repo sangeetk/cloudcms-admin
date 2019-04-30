@@ -5,6 +5,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 
@@ -39,6 +40,15 @@ func (mc *ContentController) Save() {
 	for i, field := range strings.Split(mc.GetString("fields"), ",") {
 
 		switch Schema[name].Fields[i].Widget {
+
+		case item.WidgetNumber:
+			num, _ := strconv.ParseFloat(mc.GetString(field), 64)
+			contents[field] = num
+
+		case item.WidgetBool:
+			val, _ := strconv.ParseBool(mc.GetString(field))
+			contents[field] = val
+
 		case item.WidgetDate:
 			date, err = time.Parse("2006-01-02", mc.GetString(field))
 			if err != nil {

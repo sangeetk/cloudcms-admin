@@ -147,6 +147,29 @@
         </div>
       </div>
       {{ end }}
+      {{ else if eq $f.Widget "number" }}
+      {{ if not $f.SkipHeader }}
+      <div class="field is-horizontal">
+        <div class="field-label is-normal">
+          <label class="label">{{if $f.Heading}}{{$f.Heading}}{{else}}{{$f.Name}}{{end}}</label>
+        </div>
+        <div class="field-body">
+        {{ end }}
+          <div class="field has-addons">
+            {{ if $f.HasLabel }}
+            <p class="control">
+              <a class="button is-disabled"> {{ $f.Name }} </a>
+            </p>
+            {{ end }}
+            <div class="control is-expanded">
+              <input class="input" type="text" id="{{$name}}" name="{{$name}}" 
+                value="{{contentTextValue $content $name}}" placeholder="{{ $f.Helptext }}">
+            </div>
+          </div>
+        {{ if not $f.SkipFooter }}
+        </div>
+      </div>
+      {{ end }}
       {{ else if eq $f.Widget "textarea" }}
       <div class="field is-horizontal">
         <div class="field-label is-normal">
