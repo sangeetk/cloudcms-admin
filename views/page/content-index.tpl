@@ -12,7 +12,6 @@
       <th>ID</th>
       <th>Lang</th>
       <th>Title</th>
-      <th>Slug</th>      
       <th>Date</th>
       <th>Status</th>
     </tr>
@@ -25,7 +24,6 @@
       <th>{{ $item.id }}</th>
       <td>{{ $item.language }}</td>
       <td><a href="/admin/content/{{$name}}/editor?slug={{$item.slug}}">{{ $item.title }}</a></td>
-      <td><a href="/admin/content/{{$name}}/editor?slug={{$item.slug}}">{{ $item.slug }}</a></td>
       <td>{{ unixTimeToDateString $item.created_at}}</td>
       <td>{{ status $item.status }}</td>
     </tr>
