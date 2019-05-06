@@ -73,6 +73,18 @@ func ContentDateValue(content map[string]interface{}, field string) string {
 	return ""
 }
 
+// ContentDateTimeValue gets value of date field from the content map
+func ContentDateTimeValue(content map[string]interface{}, field string) string {
+	if c, ok := content[field]; ok {
+		t, err := time.Parse(time.RFC3339, c.(string))
+		if err != nil {
+			return ""
+		}
+		return t.Format("2006-01-02 15:04:05")
+	}
+	return ""
+}
+
 // ContentTagsValue gets value of date field from the content map
 func ContentTagsValue(content map[string]interface{}, field string) string {
 	if c, ok := content[field]; ok {
@@ -109,6 +121,11 @@ func ContentFile(content map[string]interface{}, field string) *item.File {
 // CurrentDate in YYYY-MM-DD
 func CurrentDate() string {
 	return time.Now().Format("2006-01-02")
+}
+
+// CurrentDateTime in YYYY-MM-DD HH:MI:SS
+func CurrentDateTime() string {
+	return time.Now().Format("2006-01-02 15:04:05")
 }
 
 // CloudDrive mapping
