@@ -178,8 +178,8 @@
         <div class="field-body">
           <div class="field">
             <div class="control">
-              <textarea class="textarea" id="{{$name}}" name="{{$name}}" value="{{contentTextValue $content $name}}"
-                placeholder="{{ $f.Helptext }}"></textarea>
+              <textarea class="textarea" id="{{$name}}" name="{{$name}}"
+                placeholder="{{ $f.Helptext }}">{{contentTextValue $content $name}}</textarea>
             </div>
           </div>
         </div>
