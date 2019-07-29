@@ -117,6 +117,14 @@ func ContentFile(content map[string]interface{}, field string) *item.File {
 			Size: int64(content[field+".size"].(float64)),
 			URI:  content[field+".uri"].(string),
 		}
+	} else if fmap, ok := content[field]; ok {
+		filemap := fmap.(map[string]interface{})
+		file = &item.File{
+			Name: filemap["name"].(string),
+			Type: filemap["type"].(string),
+			Size: int64(filemap["size"].(float64)),
+			URI:  filemap["uri"].(string),
+		}
 	}
 	return file
 }
