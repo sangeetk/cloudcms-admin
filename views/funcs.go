@@ -98,6 +98,9 @@ func ContentTagsValue(content map[string]interface{}, field string) string {
 			return strings.Join(tags, ", ")
 
 		default:
+			if c == nil {
+				return ""
+			}
 			return c.(string)
 		}
 	}

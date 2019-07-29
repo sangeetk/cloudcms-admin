@@ -12,3 +12,4 @@ prod:
 	- docker image rm reg.urantiatech.com/cloudcms/cloudcms-admin 
 	docker build -t reg.urantiatech.com/cloudcms/cloudcms-admin .
 	docker push reg.urantiatech.com/cloudcms/cloudcms-admin
+
