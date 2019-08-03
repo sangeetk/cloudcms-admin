@@ -4,15 +4,9 @@
       General
     </p>
     <ul class="menu-list">
-      <li><a class="is-active" href="/admin/dashboard"><span class="icon is-small"><i class="fa fa-tachometer"></i></span> Dashboard</a></li>
+      <li><a class="is-active" href="/admin/dashboard"><span class="icon is-small"><i class="fa fa-home"></i></span> Dashboard</a></li>
     </ul>
 
-    <p class="menu-label">
-      Config
-    </p>
-    <ul class="menu-list">
-      <li><a href="/admin/about"><span class="icon is-small"><i class="fa fa-list"></i></span> Variables</a></li>
-    </ul>
 
     <p class="menu-label">
       Contents
@@ -23,22 +17,11 @@
       {{ end }}
     </ul>
 
-    <!-- p class="menu-label">
-      Users
-    </p>
-    <ul class="menu-list">
-      <li><a class=""><i class="fa fa-users"></i> Users</a></li>
-      <li><a class=""><i class="fa fa-user-plus"></i> Add User</a></li>
-    </ul -->
 
     <p class="menu-label">
       Administration
     </p>
     <ul class="menu-list">
-
-      <li>
-        <a class=""><i class="fa fa-cog"></i> Settings</a>
-      </li>
 
       <li><a href="/admin/logout"><span class="icon is-small"><i class="fa fa-power-off"></i></span> Logout</a></li>
       <li></li>

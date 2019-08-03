@@ -34,7 +34,7 @@ func (mc *ContentController) Index() {
 	mc.Data["Title"] = lang.CodeToName(GetLanguage(mc.Ctx)) + " " + strings.Title(name)
 	mc.Data["Schema"] = Schema
 
-	list, total, err := api.List(name, GetLanguage(mc.Ctx), "", "id", 10, 0, CurrentCMS)
+	list, total, err := api.List(name, GetLanguage(mc.Ctx), "", "-id", 10, 0, CurrentCMS)
 	if err != nil {
 		mc.Data["Error"] = err.Error()
 		return
