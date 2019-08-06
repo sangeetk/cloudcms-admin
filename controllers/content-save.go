@@ -11,7 +11,7 @@ import (
 
 	"git.urantiatech.com/cloudcms/cloudcms/api"
 	"git.urantiatech.com/cloudcms/cloudcms/item"
-	"github.com/urantiatech/beego"
+	"github.com/astaxie/beego"
 )
 
 // Save request handler

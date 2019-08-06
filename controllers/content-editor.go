@@ -6,7 +6,7 @@ import (
 
 	"git.urantiatech.com/cloudcms/cloudcms/api"
 	"git.urantiatech.com/pkg/lang"
-	"github.com/urantiatech/beego"
+	"github.com/astaxie/beego"
 	"golang.org/x/text/language"
 )
 

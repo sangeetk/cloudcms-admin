@@ -3,7 +3,7 @@ package controllers
 import (
 	"net/http"
 
-	"github.com/urantiatech/beego"
+	"github.com/astaxie/beego"
 )
 
 // LogoutController definition

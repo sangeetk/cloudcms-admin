@@ -9,8 +9,8 @@ import (
 
 	"git.urantiatech.com/cloudcms/cloudcms-admin/views"
 	"git.urantiatech.com/cloudcms/cloudcms/api"
-	"github.com/urantiatech/beego"
-	"github.com/urantiatech/beego/context"
+	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/context"
 	"golang.org/x/text/language"
 )
 

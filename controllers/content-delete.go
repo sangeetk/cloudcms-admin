@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"git.urantiatech.com/cloudcms/cloudcms/api"
-	"github.com/urantiatech/beego"
+	"github.com/astaxie/beego"
 )
 
 // Delete request handler

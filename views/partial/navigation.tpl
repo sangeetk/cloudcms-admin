@@ -1,5 +1,9 @@
   <nav class="menu">
 
+      <p class="menu-label">
+        <img class="navbar-item navbar-brand-logo" src="{{with getenv "NAVBAR_IMAGE"}}{{.}}{{else}}/admin/theme/navbar.png{{end}}" alt="CloudCMS Admin">
+      </p>
+
     <p class="menu-label">
       General
     </p>

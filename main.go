@@ -7,7 +7,7 @@ import (
 	_ "git.urantiatech.com/cloudcms/cloudcms-admin/routers"
 	"git.urantiatech.com/cloudcms/cloudcms-admin/views"
 	"git.urantiatech.com/pkg/lang"
-	"github.com/urantiatech/beego"
+	"github.com/astaxie/beego"
 )
 
 func main() {

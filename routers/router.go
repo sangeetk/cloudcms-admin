@@ -2,7 +2,7 @@ package routers
 
 import (
 	"git.urantiatech.com/cloudcms/cloudcms-admin/controllers"
-	"github.com/urantiatech/beego"
+	"github.com/astaxie/beego"
 )
 
 func init() {

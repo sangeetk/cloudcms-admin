@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"github.com/urantiatech/beego"
+	"github.com/astaxie/beego"
 )
 
 // ErrorController handles 404, 401, 403, 500, 503 errors

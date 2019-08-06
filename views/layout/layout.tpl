@@ -21,8 +21,6 @@
 
 <body>
 
-  {{ template "partial/header.tpl" . }}
-  
   <div class="wrapper">
     <div class="columns">
       <aside class="column is-2 aside">
@@ -37,14 +35,33 @@
           </ul>
         </nav>
 
+<form method="POST" action="/admin/search/{{.Name}}">
         <div class="level">
+          
           <div class="level-left">
             <div class="level-item">
               <div class="title has-text-primary"> 
                 {{.Title}}
+                &nbsp;&nbsp;&nbsp;
               </div>
             </div>
           </div>
+
+        {{ $contentType := .Name }}
+        {{ $query := .Query }}
+        {{ with .List}}
+        <div class="field-body">
+          <div class="field is-expanded has-addons">
+            <p class="control is-expanded">
+              <input class="input" type="text" value="{{with $query}}{{.}}{{end}}" placeholder="Search {{$contentType}} ...">
+            </p>
+            <p class="control">
+              <input class="button is-primary" type="submit" value="Search">&nbsp;&nbsp;&nbsp;
+            </p>
+          </div>
+        </div>
+        {{ end }}
+
           <div class="level-right">
             <div class="level-item">
               <div class="is-centered">
@@ -58,11 +75,13 @@
                     <a class="button is-primary is-outlined" href="/admin?lang={{$lang}}&dst={{$uri}}" title="{{langCodeToName $lang}}">{{uppercase $lang}}</a>
                   {{ end }}
                 {{ end }}
+                &nbsp;
               </div>
             </div>
           </div>
         </div>
-
+</form>
+<br>
         {{ block "contents" . }} {{ end }}
         
       </main>

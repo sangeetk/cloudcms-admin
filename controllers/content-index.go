@@ -6,7 +6,7 @@ import (
 
 	"git.urantiatech.com/cloudcms/cloudcms/api"
 	"git.urantiatech.com/pkg/lang"
-	"github.com/urantiatech/beego"
+	"github.com/astaxie/beego"
 )
 
 // ContentController definition
@@ -40,6 +40,7 @@ func (mc *ContentController) Index() {
 		return
 	}
 
+	mc.Data["Query"] = ""
 	mc.Data["List"] = list
 	mc.Data["Total"] = total
 }
