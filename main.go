@@ -25,6 +25,7 @@ func main() {
 	beego.AddFuncMap("contentDateValue", views.ContentDateValue)
 	beego.AddFuncMap("contentDateTimeValue", views.ContentDateTimeValue)
 	beego.AddFuncMap("contentTagsValue", views.ContentTagsValue)
+	beego.AddFuncMap("contentListValue", views.ContentListValue)
 	beego.AddFuncMap("contentFile", views.ContentFile)
 	beego.AddFuncMap("currentDate", views.CurrentDate)
 	beego.AddFuncMap("currentDateTime", views.CurrentDateTime)

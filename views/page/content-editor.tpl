@@ -366,6 +366,28 @@
         </div>
       </div>
       {{ end }}
+      {{ else if eq $f.Widget "list" }}
+      {{ if not $f.SkipHeader }}
+      <div class="field is-horizontal">
+        <div class="field-label is-normal">
+          <label class="label">{{if $f.Heading}}{{$f.Heading}}{{else}}{{$f.Name}}{{end}}</label>
+        </div>
+        <div class="field-body">
+        {{ end }}
+          <div class="field has-addons">
+            {{ if $f.HasLabel }}
+            <p class="control">
+              <a class="button is-disabled"> {{ $f.Name }} </a>
+            </p>
+            {{ end }}
+            <p class="control is-expanded">
+              <textarea class="textarea" type="text" name="{{$name}}" id="{{$name}}" placeholder="{{$f.Helptext}}">{{contentListValue $content $name}}</textarea>
+            </p>
+          </div>
+        {{ if not $f.SkipFooter }}
+        </div>
+      </div>
+      {{ end }}
       {{ else if eq $f.Widget "checkbox" }}
       <div class="field is-horizontal">
         <div class="field-label is-normal">

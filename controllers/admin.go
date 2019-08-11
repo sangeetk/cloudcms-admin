@@ -78,6 +78,16 @@ func (ac *AdminController) Post() {
 		ac.TplName = "page/login.tpl"
 		ac.Data["Title"] = "Admin Login"
 		ac.Data["Error"] = "Invalid username or password"
+
+		if len(os.Getenv("CLOUDCMS_SVCS")) > 0 {
+			CloudCMSes = strings.Split(os.Getenv("CLOUDCMS_SVCS"), ",")
+			for i, c := range CloudCMSes {
+				CloudCMSes[i] = strings.TrimSpace(c)
+			}
+			ac.Data["CloudCMSes"] = CloudCMSes
+		}
+		ac.Data["CloudCMS"] = os.Getenv("CLOUDCMS_SVC")
+
 		return
 	}
 

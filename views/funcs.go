@@ -107,6 +107,28 @@ func ContentTagsValue(content map[string]interface{}, field string) string {
 	return ""
 }
 
+// ContentListValue
+func ContentListValue(content map[string]interface{}, field string) string {
+	if c, ok := content[field]; ok {
+
+		switch c.(type) {
+		case []interface{}:
+			var list []string
+			for _, t := range c.([]interface{}) {
+				list = append(list, t.(string))
+			}
+			return strings.Join(list, ",\n")
+
+		default:
+			if c == nil {
+				return ""
+			}
+			return c.(string)
+		}
+	}
+	return ""
+}
+
 // ContentFile gets value of file field from the content map
 func ContentFile(content map[string]interface{}, field string) *item.File {
 	var file *item.File

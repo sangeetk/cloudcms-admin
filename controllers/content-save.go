@@ -72,6 +72,15 @@ func (mc *ContentController) Save() {
 			}
 			contents[field] = tags
 
+		case item.WidgetList:
+			var list []string
+			for _, tag := range strings.Split(mc.GetString(field), ",") {
+				if l := strings.TrimSpace(tag); l != "" {
+					list = append(list, l)
+				}
+			}
+			contents[field] = list
+
 		case item.WidgetFile:
 			file, header, err := mc.GetFile(field)
 			if err != nil {
