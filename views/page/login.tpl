@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin Login</title>
     <!-- Bulma Version 0.7.2-->
-    <link rel="stylesheet" type="text/css" href="/admin/theme/css/bulma.min.css">
+    <link rel="stylesheet" type="text/css" href="/admin/theme/css/bulma-spacelab.min.css">
     <style type="text/css">
         html,body {
           font-family: 'Open Sans', serif;
