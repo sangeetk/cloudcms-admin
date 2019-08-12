@@ -11,7 +11,7 @@
   <meta name="author" content="Urantia Tech" />
   <title>CloudCMS Admin - {{ .Title }}</title>
 
-  <link rel="stylesheet" href="/admin/theme/css/bulma.min.css">
+  <link rel="stylesheet" href="/admin/theme/css/bulma-spacelab.min.css">
   <link rel="stylesheet" href="/admin/theme/fontawesome/css/font-awesome.min.css">
 
   <link rel="stylesheet" href="/admin/theme/dist/main.css">
