@@ -35,7 +35,7 @@
           </ul>
         </nav>
 
-<form method="POST" action="/admin/search/{{.Name}}">
+        <form method="GET" action="/admin/content/{{.Name}}">
         <div class="level">
           
           <div class="level-left">
@@ -49,18 +49,16 @@
 
         {{ $contentType := .Name }}
         {{ $query := .Query }}
-        {{ with .List}}
         <div class="field-body">
           <div class="field is-expanded has-addons">
             <p class="control is-expanded">
-              <input class="input" type="text" value="{{with $query}}{{.}}{{end}}" placeholder="Search {{$contentType}} ...">
+              <input class="input" type="text" name="q" value="{{with $query}}{{.}}{{end}}" placeholder="Search {{$contentType}} ...">
             </p>
             <p class="control">
               <input class="button is-primary" type="submit" value="Search">&nbsp;&nbsp;&nbsp;
             </p>
           </div>
         </div>
-        {{ end }}
 
           <div class="level-right">
             <div class="level-item">
@@ -80,8 +78,10 @@
             </div>
           </div>
         </div>
-</form>
-<br>
+        </form>
+
+        <br>
+        
         {{ block "contents" . }} {{ end }}
         
       </main>

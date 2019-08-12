@@ -165,3 +165,60 @@ func CurrentDateTime() string {
 func CloudDrive(s string) string {
 	return strings.Replace(s, "drive", DriveX, 1)
 }
+
+// Pager contains the info about pagination buttons
+type Pager struct {
+	PageNum int
+	Title   string
+	URI     string
+	Active  bool
+}
+
+func PagerFn(maxPagers, currentPage, totalItems, itemsPerPage int, query string) []Pager {
+	var pagers = []Pager{}
+
+	totalPages := totalItems / itemsPerPage
+	if totalItems%itemsPerPage != 0 {
+		totalPages++
+	}
+
+	var uri string
+	if query == "" {
+		uri = fmt.Sprintf("?")
+	} else {
+		query = strings.Replace(query, " ", "+", -1)
+		uri = fmt.Sprintf("?q=%s&", query)
+	}
+
+	if currentPage > 1 {
+		pagers = append(pagers, Pager{0, "Prev", fmt.Sprintf("%sp=%d", uri, currentPage-1), false})
+	}
+
+	start := 0
+	if currentPage > maxPagers/2 {
+		start = currentPage - maxPagers/2
+	}
+
+	if totalPages-start < maxPagers && totalPages > maxPagers {
+		start = totalPages - maxPagers
+	}
+
+	for i := start; i < maxPagers+start && i < totalPages; i++ {
+		var p Pager
+		p.PageNum = i + 1
+		p.Title = fmt.Sprint(p.PageNum)
+		p.URI = fmt.Sprintf("%sp=%d", uri, p.PageNum)
+		p.Active = p.PageNum == currentPage
+		pagers = append(pagers, p)
+	}
+
+	if start+maxPagers < totalPages {
+		pagers = append(pagers, Pager{0, "...", "#", false})
+	}
+
+	if currentPage < totalPages {
+		pagers = append(pagers, Pager{0, "Next", fmt.Sprintf("%sp=%d", uri, currentPage+1), false})
+	}
+
+	return pagers
+}

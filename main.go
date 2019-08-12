@@ -34,6 +34,7 @@ func main() {
 	beego.AddFuncMap("getenv", os.Getenv)
 	beego.AddFuncMap("trimPrefix", strings.TrimPrefix)
 	beego.AddFuncMap("drive", views.CloudDrive)
+	beego.AddFuncMap("pager", views.PagerFn)
 
 	beego.Run()
 }

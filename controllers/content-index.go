@@ -34,13 +34,66 @@ func (mc *ContentController) Index() {
 	mc.Data["Title"] = lang.CodeToName(GetLanguage(mc.Ctx)) + " " + strings.Title(name)
 	mc.Data["Schema"] = Schema
 
-	list, total, err := api.List(name, GetLanguage(mc.Ctx), "", "-id", 10, 0, CurrentCMS)
+	query := mc.GetString("q")
+	mc.Data["Query"] = strings.TrimSpace(query)
+
+	p, err := mc.GetInt("p")
+	if err != nil || p <= 0 {
+		p = 1
+	}
+
+	size, err := beego.AppConfig.Int("itemsperpage")
+	if err != nil {
+		size = 25
+	}
+	skip := (p - 1) * size
+
+	mc.Data["Size"] = size
+	mc.Data["Skip"] = skip
+
+	if query == "" {
+		list, total, err := api.List(name, GetLanguage(mc.Ctx), "", "-id", size, skip, CurrentCMS)
+		if err != nil {
+			mc.Data["Error"] = err.Error()
+			return
+		}
+		mc.Data["List"] = list
+		mc.Data["First"] = first(size, skip, int(total))
+		mc.Data["Last"] = last(size, skip, int(total))
+		mc.Data["CurrentPage"] = p
+		mc.Data["Size"] = size
+		mc.Data["Total"] = int(total)
+		return
+	}
+
+	results, total, _, err := api.Search(name, GetLanguage(mc.Ctx), query, false, size, skip, CurrentCMS)
 	if err != nil {
 		mc.Data["Error"] = err.Error()
 		return
 	}
+	mc.Data["List"] = results
+	mc.Data["First"] = first(size, skip, int(total))
+	mc.Data["Last"] = last(size, skip, int(total))
+	mc.Data["CurrentPage"] = p
+	mc.Data["Size"] = size
+	mc.Data["Total"] = int(total)
+}
 
-	mc.Data["Query"] = ""
-	mc.Data["List"] = list
-	mc.Data["Total"] = total
+func first(size, skip, total int) int {
+	if total == 0 {
+		return 0
+	}
+	return skip + 1
+}
+
+func last(size, skip, total int) int {
+	if total == 0 {
+		return 0
+	}
+
+	if total > skip+size {
+		return skip + size
+	}
+
+	return total
 }
