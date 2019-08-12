@@ -30,4 +30,5 @@ func (dc *DashboardController) Get() {
 	dc.Data["Languages"] = Languages
 	dc.Data["LanguageCode"] = GetLanguage(dc.Ctx)
 	dc.Data["URI"] = dc.Ctx.Request.URL.String()
+	dc.Data["Name"] = "dashboard"
 }

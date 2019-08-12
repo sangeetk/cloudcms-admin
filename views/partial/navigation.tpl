@@ -8,7 +8,11 @@
       General
     </p>
     <ul class="menu-list">
+      {{ if eq .Name "dashboard" }}
       <li><a class="is-active" href="/admin/dashboard"><span class="icon is-small"><i class="fa fa-home"></i></span> Dashboard</a></li>
+      {{ else }}
+      <li><a href="/admin/dashboard"><span class="icon is-small"><i class="fa fa-home"></i></span> Dashboard</a></li>
+      {{ end }}
     </ul>
 
 
@@ -16,8 +20,14 @@
       Contents
     </p>
     <ul class="menu-list">
+      {{ $contentType := .Name }}
+      
       {{ range $name, $fields := .Schema }}
+      {{ if eq $contentType $name }}
+      <li><a class="is-active" href="/admin/content/{{$name}}"><span class="icon is-small"><i class="fa fa-cogs"></i></span> {{title $name}}</a></li>
+      {{ else }}
       <li><a href="/admin/content/{{$name}}"><span class="icon is-small"><i class="fa fa-cogs"></i></span> {{title $name}}</a></li>
+      {{ end }}
       {{ end }}
     </ul>
 
