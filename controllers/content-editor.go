@@ -31,14 +31,14 @@ func (mc *ContentController) Editor() {
 
 	if slug == "" {
 		// New
-		mc.Data["Title"] = "Add " + lang.CodeToName(GetLanguage(mc.Ctx)) + " " + strings.Title(name)
-		mc.Data["SubmitButton"] = "Add " + lang.CodeToName(GetLanguage(mc.Ctx)) + " " + strings.Title(name)
+		mc.Data["Title"] = "Add " + " " + strings.Title(name)
+		mc.Data["SubmitButton"] = "Add " + " " + strings.Title(name)
 	} else {
 		c, _ := api.Read(name, GetLanguage(mc.Ctx), slug, CurrentCMS)
 		if c != nil {
 			// Edit
 			mc.Data["Content"] = c.(map[string]interface{})
-			mc.Data["Title"] = "Edit " + lang.CodeToName(GetLanguage(mc.Ctx)) + " " + strings.Title(name)
+			mc.Data["Title"] = "Edit " + " " + strings.Title(name)
 			mc.Data["SubmitButton"] = "Update " + " " + strings.Title(name)
 		} else {
 			// Trsnalation

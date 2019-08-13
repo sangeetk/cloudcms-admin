@@ -5,7 +5,6 @@ import (
 	"strings"
 
 	"git.urantiatech.com/cloudcms/cloudcms/api"
-	"git.urantiatech.com/pkg/lang"
 	"github.com/astaxie/beego"
 )
 
@@ -31,7 +30,7 @@ func (mc *ContentController) Index() {
 	mc.Data["Flash"] = beego.ReadFromRequest(&mc.Controller).Data
 
 	mc.TplName = "page/content-index.tpl"
-	mc.Data["Title"] = lang.CodeToName(GetLanguage(mc.Ctx)) + " " + strings.Title(name)
+	mc.Data["Title"] = strings.Title(name)
 	mc.Data["Schema"] = Schema
 
 	query := mc.GetString("q")
