@@ -50,6 +50,7 @@
         {{ $contentType := .Name }}
         {{ $query := .Query }}
         {{ if ne $contentType "dashboard" }}
+        {{ if ne $contentType "mail" }}
         <div class="field-body">
           <div class="field is-expanded has-addons">
             <p class="control is-expanded">
@@ -60,6 +61,7 @@
             </p>
           </div>
         </div>
+        {{ end }}
         {{ end }}
 
           <div class="level-right">

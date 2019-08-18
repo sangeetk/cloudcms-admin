@@ -16,6 +16,7 @@ func init() {
 		// Admin routes
 		beego.Router("/admin", &controllers.AdminController{})
 		beego.Router("/admin/dashboard", &controllers.DashboardController{})
+		beego.Router("/admin/mail", &controllers.MailController{})
 		beego.Router("/admin/content/:name", &controllers.ContentController{}, "get:Index;post:Save;delete:Delete")
 		beego.Router("/admin/content/:name/editor", &controllers.ContentController{}, "get:Editor")
 		beego.Router("/admin/content/:name/delete", &controllers.ContentController{}, "get:Delete")

@@ -13,6 +13,15 @@
       {{ else }}
       <li><a href="/admin/dashboard"><span class="icon is-small"><i class="fa fa-home"></i></span> Dashboard</a></li>
       {{ end }}
+
+      {{ $roundcube := getenv "ROUNDCUBE_HOST" }}
+      {{ if $roundcube }}
+      {{ if eq .Name "mail" }}
+      <li><a class="is-active" href="/admin/mail"><span class="icon is-small"><i class="fa fa-envelope"></i></span> Mail</a></li>
+      {{ else }}
+      <li><a href="/admin/mail"><span class="icon is-small"><i class="fa fa-envelope"></i></span> Mail</a></li>
+      {{ end }}
+      {{ end }}
     </ul>
 
 
